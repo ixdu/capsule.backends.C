@@ -1,0 +1,2 @@
+//#define HOST_PLATFORM_WIN32
+#define HOST_PLATFORM_LIBC 
