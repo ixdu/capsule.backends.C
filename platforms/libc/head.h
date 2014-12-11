@@ -4,8 +4,10 @@
 #include "console_log.h"
 #include "require.h"
 #include "fs.h"
+#include "timer.h"
 #include "path.h"
 int platform_init(duk_context *ctx){
   fs_init(ctx);
+  timer_init(ctx);
   printf("i am libc initializer\n");
 }

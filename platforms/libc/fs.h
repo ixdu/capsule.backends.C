@@ -70,16 +70,12 @@ int fs_writeFileSync(duk_context *ctx){
   return 1;
 }
 
-#define DUK_REGISTER_FUNC(ctx, func, name) duk_push_global_object(ctx);	\
-  duk_push_c_function(ctx, func, DUK_VARARGS);				\
-  duk_put_prop_string(ctx, -2, name);					\
-  duk_pop(ctx);
-
-
 void fs_init(duk_context *ctx){
-  DUK_REGISTER_FUNC(ctx, fs_existsSync, "fs_existsSync");
-  DUK_REGISTER_FUNC(ctx, fs_mkdir, "fs_mkdir");
-  DUK_REGISTER_FUNC(ctx, fs_readdirSync, "fs_readdirSync");
-  DUK_REGISTER_FUNC(ctx, fs_readFileSync, "fs_readFileSync");
-  DUK_REGISTER_FUNC(ctx, fs_writeFileSync, "fs_writeFileSync");
+  DUK_REGISTER_OBJECT_START(ctx, "_fs");  
+  DUK_REGISTER_METHOD(ctx, fs_existsSync, "existsSync");
+  DUK_REGISTER_METHOD(ctx, fs_mkdir, "mkdir");
+  DUK_REGISTER_METHOD(ctx, fs_readdirSync, "readdirSync");
+  DUK_REGISTER_METHOD(ctx, fs_readFileSync, "readFileSync");
+  DUK_REGISTER_METHOD(ctx, fs_writeFileSync, "writeFileSync");
+  DUK_REGISTER_OBJECT_END(ctx, "_fs");
 }
