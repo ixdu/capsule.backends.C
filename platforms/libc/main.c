@@ -16,6 +16,7 @@ int main(int argc, char **argv){
 
   duk_idx_t obj_idx;
   
+  _main(ctx);
   //  duk_eval_string(ctx, "print('2+3=' + _fs.readFileSync('build')); _fs.writeFileSync('lolo', 'uhaha'); print('uhaha' + (_fs.readdirSync('platforms'))[2]);");
   //duk_pop(ctx);  
   

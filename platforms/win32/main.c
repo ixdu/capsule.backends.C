@@ -1,8 +1,31 @@
-#include <windows.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <windows.h>
 #include <tchar.h>
 
+#include "console.h"
+#include "fs.h"
+
+
+int WINAPI WinMain(HINSTANCE hInstance,
+                   HINSTANCE hPrevInstance,
+                   LPSTR lpCmdLine,
+                   int nCmdShow)
+{
+  duk_context *ctx = duk_create_heap_default();
+
+  console_init(ctx);
+  fs_init(ctx);
+  
+  _main(ctx);
+
+  duk_destroy_heap(ctx);
+
+  printf("i am win32 platform\n");
+  return 1;
+}
+  /*
 // Global variables
 
 // The main window class name.
@@ -15,13 +38,6 @@ HINSTANCE hInst;
 
 // Forward declarations of functions included in this code module:
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-
-int WINAPI WinMain(HINSTANCE hInstance,
-                   HINSTANCE hPrevInstance,
-                   LPSTR lpCmdLine,
-                   int nCmdShow)
-{
-  printf("i am win32 platform\n");
     WNDCLASSEX wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
@@ -139,3 +155,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     return 0;
 }
+*/
