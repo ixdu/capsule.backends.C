@@ -8,7 +8,10 @@ int fs_readdirSync(duk_context *ctx){
   const char *path = duk_to_string(ctx, 0);
   
   WIN32_FIND_DATA data;
-  HANDLE find = FindFirstFile(path, &data);
+  char *new_path = malloc(strlen(path + 3));
+  sprintf(new_path, "%s%s", path, "\\\\*");
+  HANDLE find = FindFirstFile(new_path, &data);
+  printf("path: %s\n", new_path);
   
   if(find == INVALID_HANDLE_VALUE)
     printf("cannot read dir\n");
@@ -18,13 +21,15 @@ int fs_readdirSync(duk_context *ctx){
   int index = 0;
   duk_push_string(ctx, data.cFileName);
   duk_put_prop_index(ctx, arr_idx, index++);
-  while(FindNextFile(find, &data)){
-    printf(data.cFileName);
+  printf("file :%s\n",data.cFileName);
+  do {
+    printf("file :%s\n",data.cFileName);
     duk_push_string(ctx, data.cFileName);
     duk_put_prop_index(ctx, arr_idx, index++);
-  }
+  } while(FindNextFile(find, &data) != 0);
 
   FindClose(find);
+  free(new_path);
 
   return 1;
 }

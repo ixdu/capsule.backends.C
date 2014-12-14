@@ -7,6 +7,9 @@
   
 #define DUK_REGISTER_METHOD(ctx, func, name) duk_push_c_function(ctx, func, DUK_VARARGS); \
   duk_put_prop_string(ctx, obj_idx, name);				\
+
+#define DUK_REGISTER_PROP_STRING(ctx, value, name) duk_push_string(ctx, value);	\
+  duk_put_prop_string(ctx, obj_idx, name);
   
 #define DUK_REGISTER_FUNC(ctx, func, name) duk_push_global_object(ctx);	\
   duk_push_c_function(ctx, func, DUK_VARARGS);				\

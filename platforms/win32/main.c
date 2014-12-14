@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <tchar.h>
 
+#include "proc.h"
 #include "console.h"
 #include "fs.h"
 
@@ -15,6 +16,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 {
   duk_context *ctx = duk_create_heap_default();
 
+  proc_init(ctx, lpCmdLine);
   console_init(ctx);
   fs_init(ctx);
   
