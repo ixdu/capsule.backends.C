@@ -1,6 +1,6 @@
 #include "duktape.h"
 
-#include "config.h"
+#include "defs.h"
 #include "utils.h"
 
 int _main(duk_context *ctx){
