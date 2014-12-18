@@ -48,9 +48,7 @@ int fs_readdirSync(duk_context *ctx){
   int index = 0;
   duk_push_string(ctx, data.cFileName);
   duk_put_prop_index(ctx, arr_idx, index++);
-  printf("file :%s\n",data.cFileName);
   do {
-    printf("file :%s\n",data.cFileName);
     duk_push_string(ctx, data.cFileName);
     duk_put_prop_index(ctx, arr_idx, index++);
   } while(FindNextFile(find, &data) != 0);

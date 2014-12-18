@@ -4,7 +4,7 @@
 #include "utils.h"
 
 int _main(duk_context *ctx){
-  duk_eval_string(ctx, "_console.log(_fs.existsSync('platforms'), _fs.existsSync('lalal'))");
+  duk_eval_string(ctx, "_console.log(_fs.existsSync('platforms'), _fs.existsSync('lalal'), proc.argv[4])");
   //  duk_eval_string(ctx, "_fs.mkdir('jj');_fs.writeFileSync('hop.txt', 'ulolop');_console.log(_fs.readFileSync('hop.txt'), _fs.readdirSync('platforms'), proc.cwd(), proc.platform, { privet : 'haha'}, 18);");
 }
 
