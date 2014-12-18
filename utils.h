@@ -5,13 +5,13 @@
 #define DUK_REGISTER_OBJECT_END(ctx, name) duk_put_prop_string(ctx, -2, name); \
   duk_pop(ctx);
   
-#define DUK_REGISTER_METHOD(ctx, func, name) duk_push_c_function(ctx, func, DUK_VARARGS); \
+#define DUK_REGISTER_METHOD(ctx, name, func) duk_push_c_function(ctx, func, DUK_VARARGS); \
   duk_put_prop_string(ctx, obj_idx, name);				\
 
-#define DUK_REGISTER_PROP_STRING(ctx, value, name) duk_push_string(ctx, value);	\
+#define DUK_REGISTER_PROP_STRING(ctx, name, value) duk_push_string(ctx, value); \
   duk_put_prop_string(ctx, obj_idx, name);
   
-#define DUK_REGISTER_FUNC(ctx, func, name) duk_push_global_object(ctx);	\
+#define DUK_REGISTER_FUNC(ctx, name, func) duk_push_global_object(ctx);	\
   duk_push_c_function(ctx, func, DUK_VARARGS);				\
   duk_put_prop_string(ctx, -2, name);					\
   duk_pop(ctx);

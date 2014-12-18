@@ -1,6 +1,33 @@
 #include <string.h>
 #include <stdlib.h>
 
+//arg path
+int fs_existsSync(duk_context *ctx){
+  int arg_count = duk_get_top(ctx);
+  if(arg_count < 1)
+    printf("need specify path\n");
+  const char *path = duk_to_string(ctx, 0);
+  DWORD Attrs;
+  Attrs = GetFileAttributes(path);
+  if(Attrs == INVALID_FILE_ATTRIBUTES)
+    duk_push_boolean(ctx, 0);
+  else
+    duk_push_boolean(ctx, 1);    
+
+  return 1;
+}
+
+//arg path
+int fs_mkdir(duk_context *ctx){
+  int arg_count = duk_get_top(ctx);
+  if(arg_count < 1)
+    printf("need specify path\n");
+  const char *path = duk_to_string(ctx, 0);
+  CreateDirectory(path, NULL);
+
+  return 0;
+}
+
 int fs_readdirSync(duk_context *ctx){
   int arg_count = duk_get_top(ctx);
   if(arg_count < 1)
@@ -77,8 +104,10 @@ int fs_readFileSync(duk_context *ctx){
 
 void fs_init(duk_context *ctx){
     DUK_REGISTER_OBJECT_START(ctx, "_fs");
-    DUK_REGISTER_METHOD(ctx, fs_readdirSync, "readdirSync");
-    DUK_REGISTER_METHOD(ctx,fs_readFileSync, "readFileSync");
-    DUK_REGISTER_METHOD(ctx,fs_writeFileSync, "writeFileSync");
+    DUK_REGISTER_METHOD(ctx, "existsSync", fs_existsSync);
+    DUK_REGISTER_METHOD(ctx, "mkdir", fs_mkdir);
+    DUK_REGISTER_METHOD(ctx, "readdirSync", fs_readdirSync);
+    DUK_REGISTER_METHOD(ctx, "readFileSync", fs_readFileSync);
+    DUK_REGISTER_METHOD(ctx, "writeFileSync", fs_writeFileSync);
     DUK_REGISTER_OBJECT_END(ctx, "_fs");
 }

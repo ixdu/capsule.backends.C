@@ -3,13 +3,14 @@ IFLAGS = -Iduktape-1.0.2/src
 ifeq ($(MAKECMDGOALS), libc)
 	LDFLAGS =  -lrt -lm
 	CC = gcc
-	_MAIN = platforms/libc/main.c
+	_PLATFORM_DIR = platforms/libc/
 	HOST_PLATFORM = '\#define HOST_PLATFORM_LIBC'
 endif
 
 ifeq ($(MAKECMDGOALS), win32)
-	LDFLAGS = -lgdi32 -luser32
+	LDFLAGS = -lgdi32 -luser32 -lshell32 -lkernel32
 	CC = i686-w64-mingw32-gcc
+	_PLATFORM_DIR = platforms/win32/
 	_MAIN = platforms/win32/main.c
 	HOST_PLATFORM = '\#define HOST_PLATFORM_WIN32'
 endif
@@ -17,7 +18,7 @@ endif
 ifeq ($(MAKECMDGOALS), e)
 	LDFLAGS = `pkg-config --cflags --libs ecore eio`
 	CC = gcc
-	_MAIN = platforms/e/main.c
+	_PLATFORM_DIR = platforms/e/
 	HOST_PLATFORM = '\#define HOST_PLATFORM_E'
 endif
 
@@ -32,7 +33,7 @@ win32 : $(objects) defs
 
 defs :
 	touch defs.h
-main.o : main.c $(_MAIN)
+main.o : main.c $(_PLATFORM_DIR)*
 	echo $(HOST_PLATFORM) > defs.h
 	$(CC) -c $(IFLAGS) main.c
 

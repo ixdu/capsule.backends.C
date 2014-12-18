@@ -72,10 +72,10 @@ int fs_writeFileSync(duk_context *ctx){
 
 void fs_init(duk_context *ctx){
   DUK_REGISTER_OBJECT_START(ctx, "_fs");  
-  DUK_REGISTER_METHOD(ctx, fs_existsSync, "existsSync");
-  DUK_REGISTER_METHOD(ctx, fs_mkdir, "mkdir");
-  DUK_REGISTER_METHOD(ctx, fs_readdirSync, "readdirSync");
-  DUK_REGISTER_METHOD(ctx, fs_readFileSync, "readFileSync");
-  DUK_REGISTER_METHOD(ctx, fs_writeFileSync, "writeFileSync");
+  DUK_REGISTER_METHOD(ctx, "existsSync", fs_existsSync);
+  DUK_REGISTER_METHOD(ctx, "mkdir", fs_mkdir);
+  DUK_REGISTER_METHOD(ctx, "readdirSync", fs_readdirSync);
+  DUK_REGISTER_METHOD(ctx, "readFileSync", fs_readFileSync);
+  DUK_REGISTER_METHOD(ctx, "writeFileSync", fs_writeFileSync);
   DUK_REGISTER_OBJECT_END(ctx, "_fs");
 }
