@@ -92,8 +92,9 @@ int fs_readFileSync(duk_context *ctx){
   
   size_t size; 
   GetFileSizeEx(hnd, (PLARGE_INTEGER) &size);
-  char *data = malloc(size);
+  char *data = malloc(size+1);
   ReadFile(hnd, data, size, NULL, NULL);
+  data[size] = 0;
   duk_push_string(ctx, data);
   free(data);
 
