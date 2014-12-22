@@ -30,16 +30,13 @@ loader.unknown_module_getter = function(path){
     return null;
 };
 
-proc.argv.shift();
-proc.argv.unshift("deployer.js");
 proc.argv.unshift("cbc");
 
 try{
     console.log('upppp');
-    require('deployer/deployer.js');     
+    require(proc.argv[1]);     
     console.log('upppp');
 } catch (x) {
     console.log('exception', JSON.stringify(x));
 }
-
-console.log("hi from capsulator");
+console.log(JSON.stringify(proc.argv));

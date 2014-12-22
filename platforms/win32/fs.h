@@ -11,8 +11,7 @@ int fs_existsSync(duk_context *ctx){
   if(arg_count < 1)
     printf("need specify path\n");
   const char *path = duk_to_string(ctx, 0);
-  DWORD Attrs;
-  Attrs = GetFileAttributes(path);
+  DWORD Attrs = GetFileAttributes(path);
   if(Attrs == INVALID_FILE_ATTRIBUTES)
     duk_push_boolean(ctx, 0);
   else
@@ -105,6 +104,10 @@ int fs_readFileSync(duk_context *ctx){
   return 1;
 }
 
+int fs_readFile(duk_context *ctx){
+  return 0;
+}
+
 void fs_init(duk_context *ctx){
     DUK_REGISTER_OBJECT_START(ctx, "_fs");
     DUK_REGISTER_METHOD(ctx, "existsSync", fs_existsSync);
@@ -112,5 +115,6 @@ void fs_init(duk_context *ctx){
     DUK_REGISTER_METHOD(ctx, "readdirSync", fs_readdirSync);
     DUK_REGISTER_METHOD(ctx, "readFileSync", fs_readFileSync);
     DUK_REGISTER_METHOD(ctx, "writeFileSync", fs_writeFileSync);
+    DUK_REGISTER_METHOD(ctx, "readFile", fs_readFile);
     DUK_REGISTER_OBJECT_END(ctx, "_fs");
 }
