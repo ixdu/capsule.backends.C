@@ -1,3 +1,7 @@
+/*
+ * filesystem builtin module with api like nodejs.fs
+ */
+
 #include <string.h>
 #include <stdlib.h>
 
@@ -38,7 +42,7 @@ int fs_readdirSync(duk_context *ctx){
   char *new_path = malloc(strlen(path + 3));
   sprintf(new_path, "%s%s", path, "\\\\*");
   HANDLE find = FindFirstFile(new_path, &data);
-  printf("path: %s\n", new_path);
+  //  printf("path: %s\n", new_path);
   
   if(find == INVALID_HANDLE_VALUE)
     printf("cannot read dir\n");

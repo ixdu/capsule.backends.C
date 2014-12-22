@@ -7,7 +7,8 @@
 #include "proc.h"
 #include "console.h"
 #include "fs.h"
-
+#include "path.h"
+#include "mkpath.h"
 
 int WINAPI WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
@@ -19,6 +20,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
   proc_init(ctx, lpCmdLine);
   console_init(ctx);
   fs_init(ctx);
+  path_init(ctx);
+  mkpath_init(ctx);
   
   _main(ctx);
 
