@@ -34,9 +34,11 @@ proc.argv.unshift("cbc");
 
 try{
     console.log('upppp');
-    require(proc.argv[1]);     
+    if(proc.argv[1] != '')
+	require(proc.argv[1]);     
     console.log('upppp');
 } catch (x) {
     console.log('exception', JSON.stringify(x));
 }
-console.log(JSON.stringify(proc.argv));
+
+//_fs.readFile('version.org', function(err, content){ console.log(content);});

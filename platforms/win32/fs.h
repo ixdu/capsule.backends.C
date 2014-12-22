@@ -105,7 +105,39 @@ int fs_readFileSync(duk_context *ctx){
 }
 
 int fs_readFile(duk_context *ctx){
-  return 0;
+  int arg_count = duk_get_top(ctx);
+  if(arg_count < 2)
+    printf("need arguments\n");
+  const char *filename = duk_to_string(ctx, 0);
+
+  if(arg_count > 2){
+    duk_to_object(ctx, -1);//options
+    //ecmascript
+  }
+
+  if(!duk_is_ecmascript_function(ctx, -1))
+    printf("need callback\n");
+
+  duk_dup(ctx, -1);
+  HANDLE hnd = CreateFile(filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  
+  if(hnd == INVALID_HANDLE_VALUE){
+    printf("cannot open file");     
+    duk_push_int(ctx, 1);
+  }else
+    duk_push_int(ctx, 0);
+  
+  size_t size; 
+  GetFileSizeEx(hnd, (PLARGE_INTEGER) &size);
+  char *data = malloc(size+1);
+  ReadFile(hnd, data, size, NULL, NULL);
+  data[size] = 0;
+  duk_push_string(ctx, data);
+  duk_call(ctx, 2);
+  free(data);
+  duk_push_boolean(ctx, TRUE);
+
+  return 1;
 }
 
 void fs_init(duk_context *ctx){
